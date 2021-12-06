@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import axios from "axios";
 
+const url = "https://limitless-harbor-13365.herokuapp.com";
+
 interface Skill {
   name: string;
   ID: number;
@@ -19,12 +21,12 @@ function App() {
   }, []);
 
   const getSkills = async () => {
-    const response = await axios.get("http://localhost:4000/skills");
+    const response = await axios.get(`${url}/skills`);
     setState(response.data);
   };
 
   const addSkill = async () => {
-    await axios.post("http://localhost:4000/skills", {
+    await axios.post(`${url}/skills`, {
       name,
       hours: parseInt(hours)
     });
@@ -62,9 +64,7 @@ function App() {
   };
 
   const incrementDatabase = async (id: number): Promise<boolean> => {
-    const response = await axios.put(
-      `http://localhost:4000/skills/hour/${id}`
-    );
+    const response = await axios.put(`${url}/skills/hour/${id}`);
     return response.status === 200;
   };
 
@@ -82,7 +82,7 @@ function App() {
   };
 
   const editDatabase = async (id: number) => {
-    await axios.put(`http://localhost:4000/skills/${id}`, {
+    await axios.put(`${url}/skills/${id}`, {
       name,
       hours: parseInt(hours)
     });
@@ -90,7 +90,7 @@ function App() {
   };
 
   const deleteSkill = async (id: number) => {
-    await axios.delete(`http://localhost:4000/skills/${id}`);
+    await axios.delete(`${url}/skills/${id}`);
     getSkills();
   };
 
