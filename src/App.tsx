@@ -37,17 +37,11 @@ function App() {
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
-
     editMode !== 0 ? await editSkill() : await addSkill();
   };
 
   const editSkill = async () => {
-    const skill = state.find((s) => s.name === name);
-    if (skill?.ID) {
-      await editDatabase(skill.ID);
-    } else {
-      alert("Skill not found WTF");
-    }
+    await editDatabase(editMode);
     setName("");
     setHours("");
   };
